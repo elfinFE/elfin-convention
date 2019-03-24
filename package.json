@@ -4,5 +4,9 @@
   "main": "index.js",
   "repository": "https://github.com/elfinFE/elfin-convention.git",
   "author": "HaoDaWang <1306036576@qq.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "tslint": "^5.14.0",
+    "typescript": "^3.3.4000"
+  }
 }
