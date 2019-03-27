@@ -1,6 +1,10 @@
 {
-    "name": "@elfin-convention/eslint-rules",
+    "name": "@elfin-convention/eslint",
     "version": "1.0.0",
     "main": "index.js",
-    "license": "MIT"
+    "license": "MIT",
+    "repository": "https://github.com/elfinFE/elfin-convention.git",
+    "dependencies": {
+        "eslint": "^5.15.3"
+    }
 }

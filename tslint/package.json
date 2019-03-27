@@ -1,5 +1,5 @@
 {
-    "name": "@elfin-convention/tslint-rules",
+    "name": "@elfin-convention/tslint",
     "version": "1.0.0",
     "main": "index.js",
     "repository": "https://github.com/elfinFE/elfin-convention.git",
