@@ -5,11 +5,13 @@
     "repository": "https://github.com/elfinFE/elfin-convention.git",
     "author": "HaoDaWang <1306036576@qq.com>",
     "license": "MIT",
-    "devDependencies": {
-        "tslint": "^5.14.0",
-        "typescript": "^3.3.4000"
-    },
     "dependencies": {
-        "ts-utils": "^6.0.7"
+        "lerna": "^3.13.1"
+    },
+    "workspaces": {
+        "packages": [
+            "tslint-rules",
+            "eslint-rules"
+        ]
     }
 }
