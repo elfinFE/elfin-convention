@@ -1,0 +1,6 @@
+{
+    "rules": {
+        "vue-html-template": true
+    },
+    "rulesDirectory": ["./dist/rules"]
+}
