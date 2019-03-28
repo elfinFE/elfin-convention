@@ -13,7 +13,7 @@ class Foo implements Rule.RuleModule {
 
             for (const child of children) {
                 if (isVElement(child)) {
-                    console.info(child.name)
+                    console.info(child.loc.start)
                 }
             }
         }

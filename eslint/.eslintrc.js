@@ -1,7 +1,7 @@
 module.exports = {
     extends: ['plugin:vue/essential'],
     rules: {
-        foo: 1,
+        'vue-template': 1,
     },
     parser: 'vue-eslint-parser',
 }
