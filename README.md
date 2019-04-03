@@ -15,8 +15,15 @@
 
 #### vue-template
 
+**template**
+
 提供对 `vue` 的 `template` 代码片的检测，符合的代码规范有:
 
 - `tabSize` 为 4 个空格缩进
 - 节点`属性`的顺序要求
+
+**script**
+
+`script` 检测:
+ - `vuex` 来源，包括 `mapActions`, `mapGetters`, `mapState` 里的参数都需要加上 `vx` 前缀
 
