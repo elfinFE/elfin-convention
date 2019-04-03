@@ -4,4 +4,5 @@ export const enum NODE_TYPE {
     PROPERTY = 'Property',
     CALL_EXPRESSION = 'CallExpression',
     IDENTIFIER = 'Identifier',
+    OBJECT_EXPRESSION = 'ObjectExpression',
 }
