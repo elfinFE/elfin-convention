@@ -22,6 +22,7 @@ import {
     ESLintLegacySpreadProperty,
 } from 'vue-eslint-parser/ast'
 import {VUE_META} from '../types'
+import { Property } from 'estree';
 
 /** default 4 space use tab*/
 const INDENTATION_ERROR_MESSAGE = 'Indentation that is 4 space.'
@@ -119,7 +120,8 @@ class Foo implements Rule.RuleModule {
                         if(!hasPrefix(name, 'vx')){
                             descriptors.push({
                                 messageId: 'vuex',
-                                loc: property.loc
+                                loc: property.loc,
+                                fix:(fixer:Rule.RuleFixer) => fixer.insertTextBefore(property as Property, 'vx')
                             })
                         }
                     }
