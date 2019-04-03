@@ -3,6 +3,7 @@
     "version": "1.0.1",
     "main": "index.js",
     "license": "MIT",
+    "author":"cat",
     "repository": "https://github.com/elfinFE/elfin-convention.git",
     "scripts": {
         "build": "tsc"
