@@ -11,7 +11,7 @@ export default {
         ...mapActions({
             aaa: 'bbb/sss',
             vxbbb: 'bbb/sss',
-            ccc: 'bbb/sss',
+            vxccc: 'bbb/sss',
         }),
     },
     computed: {},
