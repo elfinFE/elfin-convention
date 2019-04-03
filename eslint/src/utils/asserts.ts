@@ -11,6 +11,7 @@ import {
     ESLintProperty,
     ESLintLegacySpreadProperty,
     ESLintCallExpression,
+    ESLintIdentifier,
 } from 'vue-eslint-parser/ast'
 
 function compareNodeType(
@@ -52,4 +53,10 @@ export function isCallExpression(
     node: ESLintNode | ESLintLegacySpreadProperty,
 ): node is ESLintCallExpression {
     return compareNodeType(node, NODE_TYPE.CALL_EXPRESSION)
+}
+
+export function isIdentifier(
+    node: ESLintNode | ESLintLegacySpreadProperty,
+): node is ESLintIdentifier {
+    return compareNodeType(node, NODE_TYPE.IDENTIFIER)
 }
