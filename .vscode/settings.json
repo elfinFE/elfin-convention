@@ -11,5 +11,16 @@
     "tslint.configFile": "./tslint.json",
     "[plaintext]": {
         "files.insertFinalNewline": false
-    }
+    },
+    "files.associations": {
+        "*.vue": "vue"
+   },
+   "eslint.validate": [
+       "javascript",
+       "javascriptreact",
+       {
+           "language": "vue",
+           "autoFix": true
+       }
+   ]
 }
