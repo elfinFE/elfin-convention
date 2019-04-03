@@ -1,9 +1,9 @@
 {
   "name": "eslint-plugin-elfin",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
-    "@elfinct/eslint": "^1.0.13"
+    "@elfinct/eslint": "^1.0.15"
   }
 }
