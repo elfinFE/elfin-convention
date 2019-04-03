@@ -8,9 +8,14 @@ import {
     VText,
     VExpressionContainer,
     ESLintSpreadElement,
+    ESLintProperty,
+    ESLintLegacySpreadProperty,
 } from 'vue-eslint-parser/ast'
 
-function compareNodeType(node: ESLintNode, typeName: string): boolean {
+function compareNodeType(
+    node: ESLintNode | ESLintLegacySpreadProperty,
+    typeName: string,
+): boolean {
     return node.type === typeName
 }
 
@@ -27,7 +32,17 @@ export function isExportDefaultDeclaration(
 }
 
 export function isSpreadElement(
-    node: ESLintSpreadElement,
+    node: ESLintNode | ESLintLegacySpreadProperty,
 ): node is ESLintSpreadElement {
     return compareNodeType(node, NODE_TYPE.SPREAD_ELEMENT)
+}
+
+export function isProperty(
+    node:
+        | ESLintNode
+        | ESLintProperty
+        | ESLintSpreadElement
+        | ESLintLegacySpreadProperty,
+): node is ESLintProperty {
+    return compareNodeType(node, NODE_TYPE.PROPERTY)
 }
