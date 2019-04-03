@@ -1,6 +1,20 @@
 import {Rule} from 'eslint'
 import {AST} from 'vue-eslint-parser'
-import {isVElement} from '../utils'
+import {
+    isVElement,
+    getNodeName,
+    isExportDefaultDeclaration,
+    isSpreadElement,
+    isProperty,
+    isCallExpression,
+} from '../utils'
+import {
+    ESLintProgram,
+    VElement,
+    ESLintExportDefaultDeclaration,
+    ESLintObjectExpression,
+} from 'vue-eslint-parser/ast'
+import {VUE_META} from '../types'
 
 /** default 4 space use tab*/
 const INDENTATION_ERROR_MESSAGE = 'Indentation that is 4 space'
@@ -14,7 +28,7 @@ class Foo implements Rule.RuleModule {
         },
     }
 
-    walker(node: AST.VElement): boolean {
+    ASTWalker(node: AST.VElement): boolean {
         if (isVElement(node)) {
             const col = node.loc.start.column
             const parentCol = node.parent.loc.start.column
@@ -34,9 +48,63 @@ class Foo implements Rule.RuleModule {
         return false
     }
 
+    vuexLint(exportDefaultExpression: ESLintObjectExpression) {
+        const validateFields = ['mapActions', 'mapGetters', 'mapState']
+        const properties = exportDefaultExpression.properties
+        let methodsExpression: undefined | ESLintObjectExpression
+
+        for (const property of properties) {
+            if (
+                isProperty(property) &&
+                getNodeName(property) === VUE_META.METHODS
+            ) {
+                methodsExpression = property.value as ESLintObjectExpression
+            }
+        }
+
+        if (methodsExpression) {
+            for (const property of methodsExpression.properties) {
+                if (
+                    isSpreadElement(property) &&
+                    isCallExpression(property.argument)
+                ) {
+                    const {
+                        argument: {callee},
+                    } = property
+
+                    console.info(getNodeName(callee))
+                }
+            }
+        }
+
+        // for(){
+
+        // }
+    }
+
+    scriptWalker(node: ESLintProgram): boolean {
+        const {body: scriptBody} = node
+        let exportDefaultNode: undefined | ESLintExportDefaultDeclaration
+
+        for (const node of scriptBody) {
+            if (isExportDefaultDeclaration(node)) {
+                exportDefaultNode = node as ESLintExportDefaultDeclaration
+            }
+        }
+
+        if (!exportDefaultNode) {
+            return false
+        }
+
+        const exportDefaultExpression = exportDefaultNode.declaration as ESLintObjectExpression
+
+        // 处理 vuex vx前缀检测
+        this.vuexLint(exportDefaultExpression)
+    }
+
     create(context: Rule.RuleContext): Rule.RuleListener {
-        const VElement = (node: AST.VElement) => {
-            if (this.walker(node)) {
+        const VElement = (node: VElement) => {
+            if (this.ASTWalker(node)) {
                 context.report({
                     node: node,
                     messageId: 'indentation',
@@ -45,11 +113,16 @@ class Foo implements Rule.RuleModule {
             }
         }
 
-        const visitor = {
-            VElement,
+        const Program = (node: ESLintProgram) => {
+            // console.dir(node, {depth: null, colors: true})
+            // console.info(node)
+            this.scriptWalker(node)
         }
 
-        return context.parserServices.defineTemplateBodyVisitor(visitor)
+        return context.parserServices.defineTemplateBodyVisitor(
+            {VElement},
+            {Program},
+        )
     }
 }
 

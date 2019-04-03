@@ -3,4 +3,5 @@ export const enum NODE_TYPE {
     SPREAD_ELEMENT = 'SpreadElement',
     PROPERTY = 'Property',
     CALL_EXPRESSION = 'CallExpression',
+    IDENTIFIER = 'Identifier',
 }
