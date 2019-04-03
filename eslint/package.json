@@ -8,6 +8,10 @@
     "scripts": {
         "build": "tsc"
     },
+    "files": [
+        "bld/**/*.js",
+        "!bld/test/**"
+    ],
     "dependencies": {
         "eslint": "^5.15.3",
         "eslint-scope": "^4.0.3",
