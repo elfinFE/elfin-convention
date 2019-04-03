@@ -2,6 +2,9 @@
     "name": "@elfin-convention/tslint",
     "version": "1.0.1",
     "main": "index.js",
+    "publishConfig": {
+        "access": "public"
+    },
     "repository": "https://github.com/elfinFE/elfin-convention.git",
     "author": "HaoDaWang <1306036576@qq.com>",
     "license": "MIT",

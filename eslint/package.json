@@ -5,6 +5,9 @@
     "license": "MIT",
     "author": "cat",
     "repository": "https://github.com/elfinFE/elfin-convention.git",
+    "publishConfig": {
+        "access": "public"
+    },
     "scripts": {
         "build": "tsc"
     },
@@ -24,5 +27,6 @@
         "@types/eslint-visitor-keys": "^1.0.0",
         "eslint-plugin-elfin": "^1.0.0",
         "eslint-plugin-vue": "^5.0.0-beta.6"
-    }
+    },
+    "gitHead": "04c52f78f08345a20fe0c4ac32b9f864cbccaecc"
 }
