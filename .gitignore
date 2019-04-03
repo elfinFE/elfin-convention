@@ -1,5 +1,7 @@
 # dependencies
 node_modules
+eslint/node_modules
+tslint/node_modules
 
 # pkg manager
 yarn-error.log
