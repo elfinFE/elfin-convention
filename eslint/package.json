@@ -4,7 +4,9 @@
     "main": "index.js",
     "license": "MIT",
     "repository": "https://github.com/elfinFE/elfin-convention.git",
-    "scripts": {},
+    "scripts": {
+        "build": "tsc"
+    },
     "dependencies": {
         "eslint": "^5.15.3",
         "eslint-scope": "^4.0.3",
