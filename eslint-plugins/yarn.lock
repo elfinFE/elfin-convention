@@ -18,10 +18,10 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
-"@elfinct/eslint@^1.0.13":
-  version "1.0.13"
-  resolved "https://registry.npmjs.org/@elfinct/eslint/-/eslint-1.0.13.tgz#4d203642647d922ed806d1b105da4a4e6631c62a"
-  integrity sha512-CIuvp4BehZTX3tyaPlV5NRpP/RbDLGYLUKP1+gVqLaASzjYOaXyB7MdfrrdVhcROS/swTlW6Jk1IKZyOxwseSQ==
+"@elfinct/eslint@^1.0.15":
+  version "1.0.15"
+  resolved "https://registry.npmjs.org/@elfinct/eslint/-/eslint-1.0.15.tgz#8552bd5bd1b02fd86d9c51b538a0492fb0a7559b"
+  integrity sha512-O9rEB2qT2EkX94Undot+r04ERRGhaeQv3OPBZGoatY6sek4OUhkGJZ3UdoEa+f4vOhj3GLndz13uXkuUJZeYxg==
   dependencies:
     eslint "^5.15.3"
     eslint-scope "^4.0.3"
