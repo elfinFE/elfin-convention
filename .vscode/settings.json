@@ -1,5 +1,5 @@
 {
-    "editor.formatOnSave": false,
+    "editor.formatOnSave": true,
     "editor.tabSize": 4,
     "prettier.tabWidth": 4,
     "editor.insertSpaces": true,
@@ -14,13 +14,19 @@
     },
     "files.associations": {
         "*.vue": "vue"
-   },
-   "eslint.validate": [
-       "javascript",
-       "javascriptreact",
-       {
-           "language": "vue",
-           "autoFix": true
-       }
-   ]
+    },
+    "prettier.eslintIntegration": true,
+    "javascript.format.enable": false,
+    "eslint.autoFixOnSave": true,
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "vue",
+        {
+            "language": "vue",
+            "autoFix": true
+        }
+    ],
+    "vetur.format.defaultFormatter.js": "prettier-eslint",
+    "vetur.format.defaultFormatter.html": "prettyhtml"
 }
