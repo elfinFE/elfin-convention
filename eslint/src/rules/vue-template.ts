@@ -37,6 +37,21 @@ class Foo implements Rule.RuleModule {
         },
     }
 
+    create(context: Rule.RuleContext): Rule.RuleListener {
+        const VElement = (node: VElement) => {
+            attachFailures(context, this.ASTWalker(node))
+        }
+
+        const Program = (node: ESLintProgram) => {
+            attachFailures(context, this.scriptWalker(node))
+        }
+
+        return context.parserServices.defineTemplateBodyVisitor(
+            {VElement},
+            {Program},
+        )
+    }
+
     ASTWalker(node: VElement): Rule.ReportDescriptor[] {
         if (isVElement(node)) {
             const col = node.loc.start.column
@@ -131,21 +146,6 @@ class Foo implements Rule.RuleModule {
 
         // 处理 vuex vx前缀检测
         return this.vuexLint(exportDefaultExpression)
-    }
-
-    create(context: Rule.RuleContext): Rule.RuleListener {
-        const VElement = (node: VElement) => {
-            attachFailures(context, this.ASTWalker(node))
-        }
-
-        const Program = (node: ESLintProgram) => {
-            attachFailures(context, this.scriptWalker(node))
-        }
-
-        return context.parserServices.defineTemplateBodyVisitor(
-            {VElement},
-            {Program},
-        )
     }
 }
 
