@@ -1,5 +1,5 @@
 import {Rule} from 'eslint'
-import {AST} from 'vue-eslint-parser'
+import 'vue-eslint-parser'
 import {
     isVElement,
     getNodeName,
@@ -7,17 +7,25 @@ import {
     isSpreadElement,
     isProperty,
     isCallExpression,
+    isIdentifier,
+    isObjectExpression,
+    hasPrefix,
+    attachFailures,
 } from '../utils'
 import {
     ESLintProgram,
     VElement,
     ESLintExportDefaultDeclaration,
     ESLintObjectExpression,
+    ESLintProperty,
+    ESLintSpreadElement,
+    ESLintLegacySpreadProperty,
 } from 'vue-eslint-parser/ast'
 import {VUE_META} from '../types'
 
 /** default 4 space use tab*/
-const INDENTATION_ERROR_MESSAGE = 'Indentation that is 4 space'
+const INDENTATION_ERROR_MESSAGE = 'Indentation that is 4 space.'
+const VUEX_PREFIX_ERROR_MESSAGE = 'Need vx prefix here.'
 
 const ROOT_TAG_NAME = 'template'
 
@@ -25,32 +33,36 @@ class Foo implements Rule.RuleModule {
     meta: Rule.RuleMetaData = {
         messages: {
             indentation: INDENTATION_ERROR_MESSAGE,
+            vuex: VUEX_PREFIX_ERROR_MESSAGE
         },
     }
 
-    ASTWalker(node: AST.VElement): boolean {
+    ASTWalker(node: VElement): Rule.ReportDescriptor[] {
         if (isVElement(node)) {
             const col = node.loc.start.column
             const parentCol = node.parent.loc.start.column
+            const descriptors: Rule.ReportDescriptor[] = []
 
             if (node.name !== ROOT_TAG_NAME) {
-                // 元素顶格
-                if (col === 0) {
-                    return true
-                }
-                // 空格缩进
-                if (col - parentCol !== 4) {
-                    return true
+                // 元素顶格 || 空格缩进
+                if (col === 0 || col - parentCol !== 4) {
+                    descriptors.push({
+                        messageId:'indentation',
+                        loc:node.loc
+                    })
                 }
             }
+
+            return descriptors
         }
 
-        return false
+        return []
     }
 
-    vuexLint(exportDefaultExpression: ESLintObjectExpression) {
+    vuexLint(exportDefaultExpression: ESLintObjectExpression): Rule.ReportDescriptor[] {
         const validateFields = ['mapActions', 'mapGetters', 'mapState']
         const properties = exportDefaultExpression.properties
+        const descriptors: Rule.ReportDescriptor[] = []
         let methodsExpression: undefined | ESLintObjectExpression
 
         for (const property of properties) {
@@ -63,26 +75,45 @@ class Foo implements Rule.RuleModule {
         }
 
         if (methodsExpression) {
+            let properties: undefined | (ESLintProperty
+                | ESLintSpreadElement
+                | ESLintLegacySpreadProperty)[]
+
             for (const property of methodsExpression.properties) {
                 if (
                     isSpreadElement(property) &&
-                    isCallExpression(property.argument)
+                    isCallExpression(property.argument) &&
+                    isIdentifier(property.argument.callee) &&
+                    validateFields.includes(property.argument.callee.name)
                 ) {
-                    const {
-                        argument: {callee},
-                    } = property
+                    const [objectLiteral] = property.argument.arguments
 
-                    console.info(getNodeName(callee))
+                    if (isObjectExpression(objectLiteral)) {
+                        properties = objectLiteral.properties
+                    }
+                }
+            }
+
+            if(properties){
+                for(const property of properties){
+                    if(isProperty(property) && isIdentifier(property.key)){
+                        const {name} = property.key
+
+                        if(!hasPrefix(name, 'vx')){
+                            descriptors.push({
+                                messageId: 'vuex',
+                                loc: property.loc
+                            })
+                        }
+                    }
                 }
             }
         }
 
-        // for(){
-
-        // }
+        return descriptors
     }
 
-    scriptWalker(node: ESLintProgram): boolean {
+    scriptWalker(node: ESLintProgram): Rule.ReportDescriptor[] {
         const {body: scriptBody} = node
         let exportDefaultNode: undefined | ESLintExportDefaultDeclaration
 
@@ -93,30 +124,22 @@ class Foo implements Rule.RuleModule {
         }
 
         if (!exportDefaultNode) {
-            return false
+            return []
         }
 
         const exportDefaultExpression = exportDefaultNode.declaration as ESLintObjectExpression
 
         // 处理 vuex vx前缀检测
-        this.vuexLint(exportDefaultExpression)
+        return this.vuexLint(exportDefaultExpression)
     }
 
     create(context: Rule.RuleContext): Rule.RuleListener {
         const VElement = (node: VElement) => {
-            if (this.ASTWalker(node)) {
-                context.report({
-                    node: node,
-                    messageId: 'indentation',
-                } as any)
-                // vue-eslint-parser cannot provide this type
-            }
+            attachFailures(context, this.ASTWalker(node))
         }
 
         const Program = (node: ESLintProgram) => {
-            // console.dir(node, {depth: null, colors: true})
-            // console.info(node)
-            this.scriptWalker(node)
+            attachFailures(context, this.scriptWalker(node))
         }
 
         return context.parserServices.defineTemplateBodyVisitor(
