@@ -31,10 +31,12 @@ const ROOT_TAG_NAME = 'template'
 
 class Foo implements Rule.RuleModule {
     meta: Rule.RuleMetaData = {
+        fixable:'code',
         messages: {
             indentation: INDENTATION_ERROR_MESSAGE,
             vuex: VUEX_PREFIX_ERROR_MESSAGE
         },
+        schema:[]
     }
 
     create(context: Rule.RuleContext): Rule.RuleListener {
