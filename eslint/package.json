@@ -12,8 +12,7 @@
         "build": "tsc"
     },
     "files": [
-        "bld/**/*.js",
-        "!bld/test/**"
+        "bld/**/*.js"
     ],
     "dependencies": {
         "eslint": "^5.15.3",
