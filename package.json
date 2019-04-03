@@ -6,7 +6,7 @@
     "author": "HaoDaWang <1306036576@qq.com>",
     "license": "MIT",
     "scripts": {
-        "lerna:publish": "lerna publish --npm-client=npm --registry=https://registry.npmjs.org"
+        "lerna:publish": "lerna publish"
     },
     "dependencies": {
         "lerna": "^3.13.1"
