@@ -1690,10 +1690,10 @@ escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.5:
   resolved "https://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
   integrity sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=
 
-eslint-plugin-elfin@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.npmjs.org/eslint-plugin-elfin/-/eslint-plugin-elfin-1.0.2.tgz#5a87101c94dfd842e4c117e9fd9639990412c318"
-  integrity sha512-v4Y7EDq3Jc0A6MYdoZV8EMYBkXgEkh9oMRvj1ZpP2xyGUxqPvZXiTX7/Lw8pd4QSDEXz5kfIddHLsGBZtyCBJA==
+eslint-plugin-elfin@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.npmjs.org/eslint-plugin-elfin/-/eslint-plugin-elfin-1.0.4.tgz#71d21e357071a6ea3280b5245f78566dde65b84b"
+  integrity sha512-0ERErXMNAYRLbr7HUeBlXaIhLlrToGFgdIyCTAccOVBRBKABT+AkYGm7acQvGNI26o7VdkW9uFusa2cHrXte5g==
 
 eslint-plugin-vue@^5.0.0-beta.6:
   version "5.0.0-beta.6"
