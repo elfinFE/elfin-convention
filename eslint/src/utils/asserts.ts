@@ -7,6 +7,7 @@ import {
     VElement,
     VText,
     VExpressionContainer,
+    ESLintSpreadElement,
 } from 'vue-eslint-parser/ast'
 
 function compareNodeType(node: ESLintNode, typeName: string): boolean {
@@ -23,4 +24,10 @@ export function isExportDefaultDeclaration(
     node: ESLintStatement | ESLintModuleDeclaration,
 ): node is ESLintExportDefaultDeclaration {
     return compareNodeType(node, NODE_TYPE.EXPORT_DEFAULT_DECLARATION)
+}
+
+export function isSpreadElement(
+    node: ESLintSpreadElement,
+): node is ESLintSpreadElement {
+    return compareNodeType(node, NODE_TYPE.SPREAD_ELEMENT)
 }
