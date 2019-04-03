@@ -17,6 +17,7 @@
         "@types/eslint": "^4.16.6",
         "@types/eslint-scope": "^3.7.0",
         "@types/eslint-visitor-keys": "^1.0.0",
+        "eslint-plugin-elfin": "^1.0.0",
         "eslint-plugin-vue": "^5.0.0-beta.6"
     }
 }
