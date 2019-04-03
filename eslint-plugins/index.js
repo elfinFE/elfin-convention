@@ -1,4 +1,4 @@
-const VueTemplate = require('../eslint/dist/rules/vue-template')
+const VueTemplate = require('@elfinct/eslint')
 
 module.exports = {
     rules:{
