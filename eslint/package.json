@@ -24,7 +24,7 @@
         "@types/eslint": "^4.16.6",
         "@types/eslint-scope": "^3.7.0",
         "@types/eslint-visitor-keys": "^1.0.0",
-        "eslint-plugin-elfin": "^1.0.1",
+        "eslint-plugin-elfin": "^1.0.2",
         "eslint-plugin-vue": "^5.0.0-beta.6"
     },
     "gitHead": "ed692eb5283f7a30c5cd330cda834622cb822edc"
