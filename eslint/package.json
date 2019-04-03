@@ -1,5 +1,5 @@
 {
-    "name": "@elfin-convention/eslint",
+    "name": "@elfin/eslint",
     "version": "1.0.4",
     "main": "index.js",
     "license": "MIT",
@@ -28,5 +28,5 @@
         "eslint-plugin-elfin": "^1.0.0",
         "eslint-plugin-vue": "^5.0.0-beta.6"
     },
-    "gitHead": "04c52f78f08345a20fe0c4ac32b9f864cbccaecc"
+    "gitHead": "98240e89ca3b9d7ccac3a7c10dc1edb07bb36554"
 }

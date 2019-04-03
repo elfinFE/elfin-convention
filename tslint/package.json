@@ -1,5 +1,5 @@
 {
-    "name": "@elfin-convention/tslint",
+    "name": "@elfin/tslint",
     "version": "1.0.2",
     "main": "index.js",
     "publishConfig": {
@@ -15,5 +15,6 @@
     },
     "dependencies": {
         "ts-utils": "^6.0.7"
-    }
+    },
+    "gitHead": "98240e89ca3b9d7ccac3a7c10dc1edb07bb36554"
 }
