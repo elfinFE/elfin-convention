@@ -1,5 +1,5 @@
 {
-    "name": "@elfin/tslint",
+    "name": "@elfinct/tslint",
     "version": "1.0.3",
     "main": "index.js",
     "publishConfig": {
