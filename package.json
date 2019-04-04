@@ -3,7 +3,7 @@
     "private": true,
     "version": "0.0.2",
     "repository": "https://github.com/elfinFE/elfin-convention.git",
-    "author": "HaoDaWang <1306036576@qq.com>",
+    "author": "HaoDaWang",
     "license": "MIT",
     "scripts": {
         "lerna:publish": "lerna publish --npm-client=npm --registry=https://registry.npmjs.org"
