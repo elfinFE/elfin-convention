@@ -30,7 +30,7 @@ const VUEX_PREFIX_ERROR_MESSAGE = 'Need vx prefix here.'
 
 const ROOT_TAG_NAME = 'template'
 
-class Foo implements Rule.RuleModule {
+class VuexPrefix implements Rule.RuleModule {
     meta: Rule.RuleMetaData = {
         fixable:'code',
         messages: {
@@ -154,4 +154,4 @@ class Foo implements Rule.RuleModule {
 }
 
 // eslint required
-export = new Foo()
+export = new VuexPrefix()
