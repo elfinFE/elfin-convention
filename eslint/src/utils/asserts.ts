@@ -71,3 +71,7 @@ export function isObjectExpression(
 export function isSystemComment(comment: string): boolean {
     return /^\$/.test(comment)
 }
+
+export function isArrayExpression(node: ESLintProperty) {
+    return compareNodeType(node, NODE_TYPE.ARRAY_EXPRESSION)
+}
