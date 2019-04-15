@@ -13,6 +13,8 @@ import {
     ESLintCallExpression,
     ESLintIdentifier,
     ESLintObjectExpression,
+    ESLintExpression,
+    ESLintPattern,
 } from 'vue-eslint-parser/ast'
 
 function compareNodeType(
@@ -72,6 +74,6 @@ export function isSystemComment(comment: string): boolean {
     return /^\$/.test(comment)
 }
 
-export function isArrayExpression(node: ESLintProperty) {
+export function isArrayExpression(node: ESLintExpression | ESLintPattern) {
     return compareNodeType(node, NODE_TYPE.ARRAY_EXPRESSION)
 }
