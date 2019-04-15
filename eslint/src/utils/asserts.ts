@@ -16,6 +16,7 @@ import {
     ESLintExpression,
     ESLintPattern,
     ESLintArrayExpression,
+    ESLintLiteral,
 } from 'vue-eslint-parser/ast'
 
 function compareNodeType(
@@ -75,6 +76,12 @@ export function isArrayExpression(
     node: ESLintExpression | ESLintPattern,
 ): node is ESLintArrayExpression {
     return compareNodeType(node, NODE_TYPE.ARRAY_EXPRESSION)
+}
+
+export function isLiteral(
+    node: ESLintExpression | ESLintPattern,
+): node is ESLintLiteral {
+    return compareNodeType(node, NODE_TYPE.LITERAL)
 }
 
 export function isSystemComment(comment: string): boolean {

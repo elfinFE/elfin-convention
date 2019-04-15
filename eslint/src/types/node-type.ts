@@ -6,4 +6,5 @@ export const enum NODE_TYPE {
     IDENTIFIER = 'Identifier',
     OBJECT_EXPRESSION = 'ObjectExpression',
     ARRAY_EXPRESSION = 'ArrayExpression',
+    LITERAL = 'Literal',
 }
