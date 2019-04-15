@@ -17,7 +17,9 @@ import {
     ESLintPattern,
     ESLintArrayExpression,
     ESLintLiteral,
+    ESLintMemberExpression,
 } from 'vue-eslint-parser/ast'
+import {MemberExpression} from 'estree'
 
 function compareNodeType(
     node: ESLintNode | ESLintLegacySpreadProperty,
@@ -82,6 +84,12 @@ export function isLiteral(
     node: ESLintExpression | ESLintPattern,
 ): node is ESLintLiteral {
     return compareNodeType(node, NODE_TYPE.LITERAL)
+}
+
+export function isMemberExpression(
+    node: ESLintExpression | ESLintPattern,
+): node is ESLintMemberExpression {
+    return compareNodeType(node, NODE_TYPE.MEMBER_EXPRESSION)
 }
 
 export function isSystemComment(comment: string): boolean {

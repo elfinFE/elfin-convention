@@ -7,4 +7,5 @@ export const enum NODE_TYPE {
     OBJECT_EXPRESSION = 'ObjectExpression',
     ARRAY_EXPRESSION = 'ArrayExpression',
     LITERAL = 'Literal',
+    MEMBER_EXPRESSION = 'MemberExpression',
 }
