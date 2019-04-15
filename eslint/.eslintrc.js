@@ -1,9 +1,9 @@
 module.exports = {
-    extends: ['plugin:vue/essential'],
-    rules: {
-        'elfin/vue-template':2
+    parserOptions: {
+        ecmaVersion: 6,
+        sourceType: 'module',
     },
-    plugins:[
-        'elfin'
-    ],
+    rules: {
+        'chain-type': 1,
+    },
 }
