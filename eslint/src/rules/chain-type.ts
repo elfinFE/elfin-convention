@@ -2,7 +2,20 @@ import {Rule} from 'eslint'
 import {Node} from 'estree'
 import {isSystemComment, SYSTEM_COMMENT_POSITION_ERROR_MESSAGE} from '../utils'
 
+interface Routes {
+    path: string
+    name: string
+    component: unknown
+    subLevels: Routes
+}
+
+interface RoutesInfo {
+    [index: string]: Routes
+}
+
 const ROUTER_FILE_NAME = 'router-file'
+/** routes info from router file*/
+const routesInfo: RoutesInfo = {}
 
 function isSystemRouterComment(comment: string): boolean {
     return new RegExp(`^\\$${ROUTER_FILE_NAME}`).test(comment)
