@@ -5,5 +5,6 @@ module.exports = {
     },
     rules: {
         'chain-type': 1,
+        'router-chain-type-checker': 1,
     },
 }
