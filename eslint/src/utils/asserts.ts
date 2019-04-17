@@ -68,7 +68,11 @@ export function isIdentifier(
 }
 
 export function isObjectExpression(
-    node: ESLintNode | ESLintLegacySpreadProperty,
+    node:
+        | ESLintNode
+        | ESLintLegacySpreadProperty
+        | ESLintExpression
+        | ESLintSpreadElement,
 ): node is ESLintObjectExpression {
     return compareNodeType(node, NODE_TYPE.OBJECT_EXPRESSION)
 }
