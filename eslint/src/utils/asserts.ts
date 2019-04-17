@@ -19,7 +19,6 @@ import {
     ESLintLiteral,
     ESLintMemberExpression,
 } from 'vue-eslint-parser/ast'
-import {MemberExpression} from 'estree'
 
 function compareNodeType(
     node: ESLintNode | ESLintLegacySpreadProperty,
