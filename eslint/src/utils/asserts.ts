@@ -42,7 +42,10 @@ export function isExportDefaultDeclaration(
 export function isSpreadElement(
     node: ESLintNode | ESLintLegacySpreadProperty,
 ): node is ESLintSpreadElement {
-    return compareNodeType(node, NODE_TYPE.SPREAD_ELEMENT)
+    return (
+        compareNodeType(node, NODE_TYPE.SPREAD_ELEMENT) ||
+        compareNodeType(node, NODE_TYPE.EXPERIMENTAL_SPREAD_PROPERTY)
+    )
 }
 
 export function isProperty(

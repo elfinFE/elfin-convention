@@ -8,4 +8,5 @@ export const enum NODE_TYPE {
     ARRAY_EXPRESSION = 'ArrayExpression',
     LITERAL = 'Literal',
     MEMBER_EXPRESSION = 'MemberExpression',
+    EXPERIMENTAL_SPREAD_PROPERTY = 'ExperimentalSpreadProperty',
 }
