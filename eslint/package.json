@@ -9,7 +9,8 @@
         "access": "public"
     },
     "scripts": {
-        "build": "tsc"
+        "build": "tsc",
+        "lint": "eslint"
     },
     "files": [
         "dist/**/*.js"
@@ -18,7 +19,6 @@
         "babel-eslint": "^10.0.1",
         "eslint": "^5.15.3",
         "eslint-plugin-elfin": "^1.0.4",
-        "eslint-plugin-vue": "^5.2.2",
         "eslint-scope": "^4.0.3",
         "eslint-visitor-keys": "^1.0.0",
         "vue-eslint-parser": "^6.0.4"
@@ -28,7 +28,7 @@
         "@types/eslint-scope": "^3.7.0",
         "@types/eslint-visitor-keys": "^1.0.0",
         "eslint-plugin-elfin": "^1.0.2",
-        "eslint-plugin-vue": "^5.0.0-beta.6"
+        "eslint-plugin-vue": "^5.2.2"
     },
     "gitHead": "ce415f1a886b680c9a18d715537cf93b571ec80e"
 }
