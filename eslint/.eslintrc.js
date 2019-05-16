@@ -1,13 +1,7 @@
-module.exports = {
-    extends: ['plugin:vue/base'],
+const baseConfig = require('./configs/rules')
 
-    parserOptions: {
-        parser: 'babel-eslint',
-        ecmaVersion: 6,
-        sourceType: 'module',
-    },
-    rules: {
-        'chain-type': 1,
-        'router-chain-type-checker': 1,
-    },
-}
+baseConfig.rules = {...baseConfig.rules, ...{
+    "vx-prefix": 1,
+}}
+
+module.exports = baseConfig
