@@ -13,7 +13,7 @@ export abstract class EslintTest {
     abstract valid(): (string | RuleTester.ValidTestCase)[] | string
     abstract invalid(): RuleTester.InvalidTestCase[]
 
-    constructor(options: unknown) {
+    constructor(options?: unknown) {
         this.ruleTester = new RuleTester(options)
     }
 
