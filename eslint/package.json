@@ -28,7 +28,8 @@
         "@types/eslint-scope": "^3.7.0",
         "@types/eslint-visitor-keys": "^1.0.0",
         "eslint-plugin-elfin": "^1.0.2",
-        "eslint-plugin-vue": "^5.2.2"
+        "eslint-plugin-vue": "^5.2.2",
+        "mocha": "^6.1.4"
     },
     "gitHead": "ce415f1a886b680c9a18d715537cf93b571ec80e"
 }
