@@ -27,7 +27,7 @@ export abstract class EslintTest {
                 | RuleTester.ValidTestCase)[]
         }
 
-        this.ruleTester.run(testName, rule, {
+        this.ruleTester.run(`[Rule]: ${testName}`, rule, {
             valid: validCodeBlock as (string | RuleTester.ValidTestCase)[],
             invalid: this.invalid(),
         })
