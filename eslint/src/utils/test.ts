@@ -6,10 +6,10 @@ export interface MetaData {
 }
 
 export abstract class EslintTest {
-    protected abstract metaData: MetaData
+    abstract metaData: MetaData
 
-    protected abstract valid(): (string | RuleTester.ValidTestCase)[]
-    protected abstract invalid(): RuleTester.InvalidTestCase[]
+    abstract valid(): (string | RuleTester.ValidTestCase)[]
+    abstract invalid(): RuleTester.InvalidTestCase[]
 
     runTest(): void {
         const {rule, testName} = this.metaData
