@@ -10,7 +10,7 @@
     },
     "scripts": {
         "build": "tsc",
-        "lint": "eslint"
+        "test": "mocha --reporter dot --require @babel/register ./dist/tests/rules"
     },
     "files": [
         "dist/**/*.js"
@@ -24,6 +24,10 @@
         "vue-eslint-parser": "^6.0.4"
     },
     "devDependencies": {
+        "@babel/core": "^7.4.4",
+        "@babel/preset-env": "^7.4.4",
+        "@babel/preset-es2015": "^7.0.0-beta.53",
+        "@babel/register": "^7.4.4",
         "@types/eslint": "^4.16.6",
         "@types/eslint-scope": "^3.7.0",
         "@types/eslint-visitor-keys": "^1.0.0",
