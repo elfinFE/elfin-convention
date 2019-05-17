@@ -6,10 +6,16 @@ export interface MetaData {
 }
 
 export abstract class EslintTest {
+    private ruleTester!: RuleTester
+
     abstract metaData: MetaData
 
     abstract valid(): (string | RuleTester.ValidTestCase)[] | string
     abstract invalid(): RuleTester.InvalidTestCase[]
+
+    constructor(options: unknown) {
+        this.ruleTester = new RuleTester(options)
+    }
 
     runTest(): void {
         const {rule, testName} = this.metaData
@@ -26,7 +32,7 @@ export abstract class EslintTest {
                 | RuleTester.ValidTestCase)[]
         }
 
-        new RuleTester().run(testName, rule, {
+        this.ruleTester.run(testName, rule, {
             valid: validCodeBlock as (string | RuleTester.ValidTestCase)[],
             invalid: this.invalid(),
         })
