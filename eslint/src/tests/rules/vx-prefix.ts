@@ -5,7 +5,7 @@ import {EslintTest, MetaData} from '../../utils'
 class VxPrefixTest extends EslintTest {
     metaData: MetaData = {
         rule: VxPrefixRule,
-        testName: '[Rule]: vxPrefix',
+        testName: 'vxPrefix',
     }
 
     valid(): (string | RuleTester.ValidTestCase)[] | string {
