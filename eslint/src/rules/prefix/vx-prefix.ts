@@ -30,14 +30,6 @@ class VxPrefix implements Rule.RuleModule {
                 if (
                     isSpreadElement(property) &&
                     isCallExpression(property.argument) &&
-                    isIdentifier(property.argument.callee)
-                ) {
-                    console.info(property.argument.callee.name)
-                }
-
-                if (
-                    isSpreadElement(property) &&
-                    isCallExpression(property.argument) &&
                     isIdentifier(property.argument.callee) &&
                     NEED_CHECK_KEYS.includes(property.argument.callee.name)
                 ) {
@@ -97,7 +89,8 @@ class VxPrefix implements Rule.RuleModule {
         return failures
     }
 
-    create(context: Rule.RuleContext): Rule.RuleListener {
+    // 必须声明一个 arrow fn，在执行 mocha 测试的时候会动态的改变 this 指向
+    create = (context: Rule.RuleContext): Rule.RuleListener => {
         const Program = (program: ESLintProgram): void => {
             attachFailures(context, this.prefixWalker(program))
         }
