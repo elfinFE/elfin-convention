@@ -9,7 +9,7 @@ import {
     isSpreadElement,
     isCallExpression,
     hasPrefix,
-} from '../../utils'
+} from '../utils'
 import {ESLintProgram, ESLintNode} from 'vue-eslint-parser/ast'
 
 const NEED_CHECK_KEYS = ['mapState', 'mapGetters', 'mapActions']

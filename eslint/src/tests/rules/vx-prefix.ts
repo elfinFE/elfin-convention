@@ -1,5 +1,5 @@
 import {RuleTester} from 'eslint'
-import VxPrefixRule from '../../rules/prefix/vx-prefix'
+import VxPrefixRule from '../../rules/vx-prefix'
 import {EslintTest, MetaData} from '../../utils'
 
 class VxPrefixTest extends EslintTest {
