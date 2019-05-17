@@ -15,10 +15,6 @@ import {ESLintProgram, ESLintNode} from 'vue-eslint-parser/ast'
 const NEED_CHECK_KEYS = ['mapState', 'mapGetters', 'mapActions']
 const NEED_CHECK_PROPERTY_NAMES = ['computed', 'methods']
 
-// Error Message
-const COMMON_ERROR_MESSAGE = "must have the 'vx' prefix"
-const errorMsgGenerator = (role: string) => `${role}${COMMON_ERROR_MESSAGE}`
-
 class VxPrefix implements Rule.RuleModule {
     meta?: Rule.RuleMetaData = {
         fixable: 'code',
@@ -63,10 +59,12 @@ class VxPrefix implements Rule.RuleModule {
                             ) {
                                 // has Fix?
                                 failures.push({
-                                    message: errorMsgGenerator(
-                                        property.key.name,
-                                    ),
+                                    message:
+                                        "{{ fieldName }} must have the 'vx' prefix",
                                     loc: property.key.loc,
+                                    data: {
+                                        fieldName: property.key.name,
+                                    },
                                 })
                             }
                         }
@@ -108,4 +106,4 @@ class VxPrefix implements Rule.RuleModule {
     }
 }
 
-module.exports = new VxPrefix()
+export = new VxPrefix()
