@@ -21,12 +21,7 @@ export abstract class EslintTest {
         const {rule, testName} = this.metaData
         let validCodeBlock = this.valid()
 
-        if (
-            !(
-                Object.prototype.toString.call(validCodeBlock) ===
-                '[Object Array]'
-            )
-        ) {
+        if (typeof validCodeBlock === 'string') {
             validCodeBlock = [validCodeBlock] as (
                 | string
                 | RuleTester.ValidTestCase)[]
