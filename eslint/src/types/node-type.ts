@@ -9,4 +9,5 @@ export const enum NODE_TYPE {
     LITERAL = 'Literal',
     MEMBER_EXPRESSION = 'MemberExpression',
     EXPERIMENTAL_SPREAD_PROPERTY = 'ExperimentalSpreadProperty',
+    THIS_EXPRESSION = 'ThisExpression',
 }
