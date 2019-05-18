@@ -98,7 +98,7 @@ export function isLiteral(
 }
 
 export function isMemberExpression(
-    node: ESLintExpression | ESLintPattern | ESLintSuper | null,
+    node: ESLintNode | ESLintExpression | ESLintPattern | ESLintSuper | null,
 ): node is ESLintMemberExpression {
     if (node === null) {
         return false
