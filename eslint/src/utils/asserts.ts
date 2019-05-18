@@ -19,6 +19,10 @@ import {
     ESLintLiteral,
     ESLintMemberExpression,
     ESLintSuper,
+    ESLintVariableDeclaration,
+    ESLintExpressionStatement,
+    ESLintVariableDeclarator,
+    ESLintAssignmentExpression,
 } from 'vue-eslint-parser/ast'
 
 function compareNodeType(
@@ -94,9 +98,37 @@ export function isLiteral(
 }
 
 export function isMemberExpression(
-    node: ESLintExpression | ESLintPattern | ESLintSuper,
+    node: ESLintExpression | ESLintPattern | ESLintSuper | null,
 ): node is ESLintMemberExpression {
+    if (node === null) {
+        return false
+    }
+
     return compareNodeType(node, NODE_TYPE.MEMBER_EXPRESSION)
+}
+
+export function isVariableDeclaration(
+    node: ESLintNode,
+): node is ESLintVariableDeclaration {
+    return compareNodeType(node, NODE_TYPE.VARIABLE_DECLARATION)
+}
+
+export function isExpressionStatement(
+    node: ESLintNode,
+): node is ESLintExpressionStatement {
+    return compareNodeType(node, NODE_TYPE.EXPRESSION_STATEMENT)
+}
+
+export function isVariableDeclarator(
+    node: ESLintNode,
+): node is ESLintVariableDeclarator {
+    return compareNodeType(node, NODE_TYPE.VARIABLE_DECLARATOR)
+}
+
+export function isAssignmentExpression(
+    node: ESLintNode,
+): node is ESLintAssignmentExpression {
+    return compareNodeType(node, NODE_TYPE.ASSIGNMENT_EXPRESSION)
 }
 
 export function isThisExpression(node: ESLintExpression | ESLintSuper) {

@@ -10,4 +10,8 @@ export const enum NODE_TYPE {
     MEMBER_EXPRESSION = 'MemberExpression',
     EXPERIMENTAL_SPREAD_PROPERTY = 'ExperimentalSpreadProperty',
     THIS_EXPRESSION = 'ThisExpression',
+    VARIABLE_DECLARATION = 'VariableDeclaration',
+    EXPRESSION_STATEMENT = 'ExpressionStatement',
+    VARIABLE_DECLARATOR = 'VariableDeclarator',
+    ASSIGNMENT_EXPRESSION = 'AssignmentExpression',
 }
