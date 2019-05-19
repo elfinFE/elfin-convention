@@ -165,7 +165,7 @@ class RefPrefix implements Rule.RuleModule {
             if (isIdentifier(property) && isRefCallee) {
                 const {name, loc} = property
 
-                return this.failureAttacher(name, loc)
+                needThrowFailures.push(...this.failureAttacher(name, loc))
             }
         }
 
@@ -177,7 +177,7 @@ class RefPrefix implements Rule.RuleModule {
         left: ESLintNode,
         right: ESLintNode | null,
         blockLoc: LocationRange,
-    ) => {
+    ): void => {
         let variableName: string | undefined
 
         interface HasProperty {
@@ -223,18 +223,89 @@ class RefPrefix implements Rule.RuleModule {
             variableName = left.name
         }
 
+        let layerCount = 0
+
+        interface CalleeValueMap {
+            [index: number]: CalleeValue
+        }
+
+        const calleeValueMap: CalleeValueMap = {
+            0: 'naked',
+            1: 'ref',
+            2: 'immediately',
+        }
+
+        if (!isMemberExpression(right)) {
+            return
+        }
+
+        const findRef = (node: ESLintNode): CalleeValue | null => {
+            if (isMemberExpression(node) && isIdentifier(node.property)) {
+                const back = (result: CalleeValue | null) => {
+                    if (result && layerCount--) {
+                        judgeAddRef(
+                            node,
+                            calleeValueMap[layerCount],
+                            variableName,
+                        )
+                    }
+
+                    return calleeValueMap[layerCount]
+                }
+
+                if (!isRefs(node.property.name)) {
+                    layerCount++
+
+                    let result = findRef(node.object)
+
+                    return back(result)
+                } else {
+                    if (layerCount < 0) {
+                        return null
+                    }
+
+                    const calleeValue =
+                        calleeValueMap[layerCount] || 'immediately'
+                    const result = judgeAddRef(
+                        node,
+                        calleeValue,
+                        variableName,
+                        calleeValue === 'immediately'
+                            ? right.property
+                            : undefined,
+                    )
+
+                    if (result) {
+                        if (layerCount > 2) {
+                            layerCount = 2
+                        }
+
+                        return calleeValue
+                    } else {
+                        let result = findRef(node.object)
+
+                        return back(result)
+                    }
+                }
+            }
+
+            return null
+        }
+
+        findRef(right)
+
         // 收集信息
-        isMemberExpression(right) &&
-            !judgeAddRef(right, 'naked', variableName) &&
-            isMemberExpression(right.object) &&
-            !judgeAddRef(right.object, 'ref', variableName) &&
-            isMemberExpression(right.object.object) &&
-            !judgeAddRef(
-                right.object.object,
-                'immediately',
-                variableName,
-                right.property,
-            )
+        // isMemberExpression(right) &&
+        //     !judgeAddRef(right, 'naked', variableName) &&
+        //     isMemberExpression(right.object) &&
+        //     !judgeAddRef(right.object, 'ref', variableName) &&
+        //     isMemberExpression(right.object.object) &&
+        //     !judgeAddRef(
+        //         right.object.object,
+        //         'immediately',
+        //         variableName,
+        //         right.property,
+        //     )
     }
 
     private refCollector = (
@@ -244,11 +315,6 @@ class RefPrefix implements Rule.RuleModule {
         const {id, init} = expression
 
         this.innerCollector(id, init, blockLoc)
-
-        // 触发调用检测器
-        if (init && isCallExpression(init)) {
-            this.refChecker(init, blockLoc)
-        }
     }
 
     // 跟踪是否移除引用
@@ -270,11 +336,6 @@ class RefPrefix implements Rule.RuleModule {
                 }
             }
         }
-
-        // 触发调用检测器
-        if (isCallExpression(right)) {
-            this.refChecker(right, blockLoc)
-        }
     }
 
     private tracker(
@@ -284,6 +345,10 @@ class RefPrefix implements Rule.RuleModule {
         const {body, loc} = statement
         // 等待收集和去除流程走完，执行检查器
         const deferCheckerQueue: Function[] = []
+        const deferCheck = (expression: ESLintCallExpression) =>
+            deferCheckerQueue.push(() =>
+                attachFailures(context, this.refChecker(expression, loc)),
+            )
 
         for (const el of body) {
             if (isVariableDeclaration(el)) {
@@ -298,12 +363,7 @@ class RefPrefix implements Rule.RuleModule {
                         const {init} = declaration
 
                         if (init && isCallExpression(init)) {
-                            deferCheckerQueue.push(() =>
-                                attachFailures(
-                                    context,
-                                    this.refChecker(init, loc),
-                                ),
-                            )
+                            deferCheck(init)
                         }
                     }
                 }
@@ -312,6 +372,10 @@ class RefPrefix implements Rule.RuleModule {
             if (isExpressionStatement(el)) {
                 const {expression} = el
 
+                if (isCallExpression(expression)) {
+                    deferCheck(expression)
+                }
+
                 // 根据实际引用值来去留 ref
                 if (isAssignmentExpression(expression)) {
                     this.variableRefTracker(expression, loc)
@@ -319,12 +383,7 @@ class RefPrefix implements Rule.RuleModule {
                     const {right} = expression
 
                     if (isCallExpression(right)) {
-                        deferCheckerQueue.push(() =>
-                            attachFailures(
-                                context,
-                                this.refChecker(right, loc),
-                            ),
-                        )
+                        deferCheck(right)
                     }
                 }
             }
