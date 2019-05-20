@@ -1,7 +1,8 @@
-const {VueTemplate} = require('@elfinct/eslint')
+const {VxPrefix, RefPrefix} = require('../eslint')
 
 module.exports = {
-    rules:{
-        'vue-template':VueTemplate
-    }
+    rules: {
+        'vx-prefix': VxPrefix,
+        'ref-prefix': RefPrefix,
+    },
 }
