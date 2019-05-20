@@ -295,19 +295,6 @@ class RefPrefix implements Rule.RuleModule {
         }
 
         findRef(right)
-
-        // 收集信息
-        // isMemberExpression(right) &&
-        //     !judgeAddRef(right, 'naked', variableName) &&
-        //     isMemberExpression(right.object) &&
-        //     !judgeAddRef(right.object, 'ref', variableName) &&
-        //     isMemberExpression(right.object.object) &&
-        //     !judgeAddRef(
-        //         right.object.object,
-        //         'immediately',
-        //         variableName,
-        //         right.property,
-        //     )
     }
 
     private refCollector = (
