@@ -10,6 +10,7 @@ class VxPrefixTest extends EslintTest {
 
     valid(): (string | RuleTester.ValidTestCase)[] | string {
         return [
+            `foo`,
             `export default {
                 name: 'bar',
                 computed: {
