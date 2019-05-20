@@ -69,7 +69,13 @@ class VxPrefix implements Rule.RuleModule {
     }
 
     private prefixWalker(program: ESLintProgram): Rule.ReportDescriptor[] {
-        const {declaration} = findDefaultExportObject(program)!
+        const exportObj = findDefaultExportObject(program)
+
+        if(!exportObj){
+            return []
+        }
+
+        const {declaration} = exportObj
         const failures: Rule.ReportDescriptor[] = []
 
         if (isObjectExpression(declaration)) {
