@@ -10,7 +10,8 @@
     },
     "scripts": {
         "build": "tsc",
-        "test": "mocha --reporter dot --require @babel/register ./dist/tests/rules"
+        "test": "mocha --reporter dot --require @babel/register ./dist/tests/rules",
+        "test:sf": "node ./test-single-file"
     },
     "files": [
         "dist/**/*.js"
