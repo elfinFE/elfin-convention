@@ -14,4 +14,5 @@ export const enum NODE_TYPE {
     EXPRESSION_STATEMENT = 'ExpressionStatement',
     VARIABLE_DECLARATOR = 'VariableDeclarator',
     ASSIGNMENT_EXPRESSION = 'AssignmentExpression',
+    RETURN_STATEMENT = 'ReturnStatement',
 }

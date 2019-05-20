@@ -23,6 +23,8 @@ import {
     ESLintExpressionStatement,
     ESLintVariableDeclarator,
     ESLintAssignmentExpression,
+    ESLintThisExpression,
+    ESLintReturnStatement,
 } from 'vue-eslint-parser/ast'
 
 function compareNodeType(
@@ -131,8 +133,16 @@ export function isAssignmentExpression(
     return compareNodeType(node, NODE_TYPE.ASSIGNMENT_EXPRESSION)
 }
 
-export function isThisExpression(node: ESLintExpression | ESLintSuper) {
+export function isThisExpression(
+    node: ESLintExpression | ESLintSuper,
+): node is ESLintThisExpression {
     return compareNodeType(node, NODE_TYPE.THIS_EXPRESSION)
+}
+
+export function isReturnStatement(
+    node: ESLintNode,
+): node is ESLintReturnStatement {
+    return compareNodeType(node, NODE_TYPE.RETURN_STATEMENT)
 }
 
 export function isSystemComment(comment: string): boolean {

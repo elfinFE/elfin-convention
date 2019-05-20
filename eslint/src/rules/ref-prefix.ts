@@ -18,6 +18,7 @@ import {
     isExpressionStatement,
     isAssignmentExpression,
     isCallExpression,
+    isReturnStatement,
 } from '../utils'
 
 const NEED_CHECK_PREFIX = 'ref'
@@ -239,6 +240,7 @@ class RefPrefix implements Rule.RuleModule {
             return
         }
 
+        // 收集信息
         const findRef = (node: ESLintNode): CalleeValue | null => {
             if (isMemberExpression(node) && isIdentifier(node.property)) {
                 const back = (result: CalleeValue | null) => {
@@ -385,6 +387,15 @@ class RefPrefix implements Rule.RuleModule {
                     if (isCallExpression(right)) {
                         deferCheck(right)
                     }
+                }
+            }
+
+            // 返回值检查
+            if (isReturnStatement(el)) {
+                const {argument} = el
+
+                if (argument && isCallExpression(argument)) {
+                    deferCheck(argument)
                 }
             }
         }
