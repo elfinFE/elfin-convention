@@ -1,5 +1,7 @@
-const VueTemplate = require('./dist/rules/vue-template')
+const VxPrefix = require('./dist/rules/vx-prefix')
+const refPrefix = require('./dist/rules/ref-prefix')
 
 module.exports = {
-    VueTemplate,
+    VxPrefix,
+    refPrefix
 }
