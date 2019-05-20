@@ -2,7 +2,7 @@ import {EslintTest, MetaData} from '../../utils'
 import refPrefix from '../../rules/ref-prefix'
 import {RuleTester} from 'eslint'
 
-class VxRefPrefix extends EslintTest {
+class RefPrefixTest extends EslintTest {
     metaData: MetaData = {
         rule: refPrefix,
         testName: 'vx',
@@ -209,7 +209,7 @@ class VxRefPrefix extends EslintTest {
     }
 }
 
-new VxRefPrefix({
+new RefPrefixTest({
     parser: 'vue-eslint-parser',
     parserOptions: {
         ecmaVersion: 2018,
