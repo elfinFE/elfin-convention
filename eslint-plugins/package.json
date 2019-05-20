@@ -4,5 +4,7 @@
     "main": "index.js",
     "license": "MIT",
     "devDependencies": {},
-    "dependencies": {}
+    "dependencies": {
+        "@elfinct/eslint": "^1.1.3"
+    }
 }

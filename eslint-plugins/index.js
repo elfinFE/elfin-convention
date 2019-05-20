@@ -1,4 +1,4 @@
-const {VxPrefix, RefPrefix} = require('../eslint')
+const {VxPrefix, RefPrefix} = require('@elfinct/eslint')
 
 module.exports = {
     rules: {
