@@ -5,7 +5,7 @@ import {RuleTester} from 'eslint'
 class RefPrefixTest extends EslintTest {
     metaData: MetaData = {
         rule: refPrefix,
-        testName: 'vx',
+        testName: 'ref-prefix',
     }
 
     valid(): string | (string | RuleTester.ValidTestCase)[] {
