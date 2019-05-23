@@ -41,11 +41,31 @@ interface Reference {
     failureInfo?: FailureInfo
 }
 
+interface ParsedOptions {
+    allow: string[]
+}
+
 class RefPrefix implements Rule.RuleModule {
     meta: Rule.RuleMetaData = {
         fixable: 'code',
+        schema: [
+            {
+                type: 'object',
+                properties: {
+                    allow: {
+                        type: 'array',
+                        items: {
+                            type: 'string',
+                        },
+                        minItems: 1,
+                        uniqueItems: true,
+                    },
+                },
+            },
+        ],
     }
 
+    private allowFields: string[] = []
     private refsTracker: Reference[] = []
 
     private failureAttacher = (
@@ -336,7 +356,16 @@ class RefPrefix implements Rule.RuleModule {
         const deferCheckerQueue: Function[] = []
         const deferCheck = (expression: ESLintCallExpression) =>
             deferCheckerQueue.push(() =>
-                attachFailures(context, this.refChecker(expression, loc)),
+                attachFailures(
+                    context,
+                    this.refChecker(expression, loc).filter(
+                        ({data}) =>
+                            !(
+                                data &&
+                                this.allowFields.includes(data.fieldName)
+                            ),
+                    ),
+                ),
             )
 
         for (const el of body) {
@@ -401,6 +430,14 @@ class RefPrefix implements Rule.RuleModule {
     }
 
     create = (context: Rule.RuleContext): Rule.RuleListener => {
+        const {options} = context
+
+        if (options && options.length) {
+            const {allow}: ParsedOptions = options[0]
+
+            this.allowFields = allow || []
+        }
+
         const blockStatementWalker = (statement: ESLintBlockStatement) =>
             this.tracker(statement, context)
 
