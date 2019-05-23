@@ -363,6 +363,13 @@ class RefPrefix implements Rule.RuleModule {
 
                 if (isCallExpression(expression)) {
                     deferCheck(expression)
+
+                    // 参数为 callExpression 的情况
+                    for (const argument of expression.arguments) {
+                        if (isCallExpression(argument)) {
+                            deferCheck(argument)
+                        }
+                    }
                 }
 
                 // 根据实际引用值来去留 ref
