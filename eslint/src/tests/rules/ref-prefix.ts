@@ -205,6 +205,20 @@ class RefPrefixTest extends EslintTest {
                     },
                 ],
             },
+            {
+                code: `export default {
+                    methods: {
+                        bar(){
+                            this.B(this.$refs.foo.bar())
+                        }
+                    }
+                }`,
+                errors: [
+                    {
+                        message: "bar must have the 'ref' prefix",
+                    },
+                ],
+            },
         ]
     }
 }
