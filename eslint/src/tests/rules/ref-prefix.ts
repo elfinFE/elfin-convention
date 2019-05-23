@@ -108,6 +108,63 @@ class RefPrefixTest extends EslintTest {
                     }
                 }
             }`,
+            {
+                code: `
+                export default {
+                    methods: {
+                        bar(){
+                            this.$refs.aaa.bbb()
+                        }
+                    }
+                }`,
+                options: [{allow: ['bbb']}],
+            },
+            {
+                code: `
+                export default {
+                    methods: {
+                        bar(){
+                            let a = $refs
+                            a.bbb.ccc()
+                        }
+                    }
+                }`,
+                options: [{allow: ['ccc']}],
+            },
+            {
+                code: `
+                export default {
+                    methods: {
+                        bar(){
+                            let a = $refs.bbb
+                            a.ccc()
+                        }
+                    }
+                }`,
+                options: [{allow: ['ccc']}],
+            },
+            {
+                code: `
+                export default {
+                    methods: {
+                        bar(){
+                            return this.$refs.aaa.bbb()
+                        }
+                    }
+                }`,
+                options: [{allow: ['bbb']}],
+            },
+            {
+                code: `
+                export default {
+                    methods: {
+                        bar(){
+                            this.a(this.$refs.aaa.bbb())
+                        }
+                    }
+                }`,
+                options: [{allow: ['bbb']}],
+            },
         ]
     }
     invalid(): RuleTester.InvalidTestCase[] {
