@@ -52,7 +52,7 @@ class ComponentStrict implements Rule.RuleModule {
 
                                 if (
                                     isIdentifier(key) &&
-                                    isBigCamelCase(key.name)
+                                    !isBigCamelCase(key.name)
                                 ) {
                                     addFailure(key.name, key.loc)
                                 }
@@ -60,7 +60,7 @@ class ComponentStrict implements Rule.RuleModule {
                                 if (
                                     isIdentifier(key) &&
                                     isIdentifier(value) &&
-                                    isBigCamelCase(value.name) &&
+                                    !isBigCamelCase(value.name) &&
                                     key.name !== value.name
                                 ) {
                                     addFailure(value.name, value.loc)
@@ -85,7 +85,7 @@ class ComponentStrict implements Rule.RuleModule {
         return context.parserServices.defineTemplateBodyVisitor(
             {},
             {
-                ESLintExportDefaultDeclaration: exportDefaultDeclarationWalker,
+                ExportDefaultDeclaration: exportDefaultDeclarationWalker,
             },
         )
     }
