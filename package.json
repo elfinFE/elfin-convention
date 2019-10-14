@@ -9,7 +9,7 @@
         "lerna:publish": "lerna publish --npm-client=npm --registry=https://registry.npmjs.org"
     },
     "dependencies": {
-        "lerna": "^3.13.1"
+        "lerna": "3.13.1"
     },
     "workspaces": {
         "packages": [

@@ -1,4 +1,5 @@
 # dependencies
+.idea
 node_modules
 eslint/node_modules
 tslint/node_modules
