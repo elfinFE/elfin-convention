@@ -26,6 +26,10 @@ class FunctionNoteTest extends EslintTest {
                 options: [{allow: ['log']}]
             },
             {
+                code: 'console.log(111)\nconsole.log(222)',
+                options: [{allow: ['log']}]
+            },
+            {
                 code: 'console.error(111)',
                 options: [{allow: ['error']}]
             },
@@ -35,12 +39,17 @@ class FunctionNoteTest extends EslintTest {
     invalid(): RuleTester.InvalidTestCase[] {
         return [
             {
-                code: "console.log(111)",
-                errors: [{message: "invalid console."}],
+                code: 'console.log(111)',
+                errors: [{message: 'invalid console.'}],
             },
             {
-                code: "console.dir(111)",
-                errors: [{message: "invalid console."}],
+                code: 'console.dir(111)',
+                errors: [{message: 'invalid console.'}],
+            },
+            {
+                code: 'console.log(111)\nconsole.error(222)',
+                options: [{allow: ['log']}],
+                errors: [{message: 'invalid console.'}],
             },
             {
                 code: `
@@ -52,7 +61,7 @@ class FunctionNoteTest extends EslintTest {
                         throw e
                     }
                 `,
-                errors: [{message: "invalid console."}],
+                errors: [{message: 'invalid console.'}],
             },
         ]
     }
