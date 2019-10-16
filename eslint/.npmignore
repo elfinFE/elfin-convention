@@ -1,0 +1,9 @@
+.DS_Store
+*.log
+src
+configs
+node_modules
+.idea
+package-lock.json
+dist/tests
+dist/types
