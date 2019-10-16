@@ -68,8 +68,7 @@ module.exports = {
             const isNameConsole = reference.identifier.name === 'console';
             if (!isNameConsole) return false;
             // 是否允许使用
-            if (isAllowed(reference)) return false;
-            return isMemberExpressionBlock(reference);
+            return !isAllowed(reference)
         }
 
         /**
@@ -107,7 +106,7 @@ module.exports = {
 
                 if (!shadowed) {
                     // 收集所有的console && 输出
-                    references.filter(isConsole).forEach(report);
+                    references.filter(isMemberExpressionBlock).forEach(report);
                 }
             },
         };
