@@ -4,6 +4,7 @@ src
 configs
 node_modules
 .idea
+test-single-file.js
 package-lock.json
 dist/tests/
 dist/types/

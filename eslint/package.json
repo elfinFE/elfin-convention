@@ -1,6 +1,6 @@
 {
     "name": "@elfinct/eslint-plugin-elfin",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "main": "index.js",
     "license": "MIT",
     "author": "cat",
@@ -13,9 +13,6 @@
         "test": "npm run build && mocha --reporter dot --require @babel/register ./dist/tests/rules",
         "test:sf": "node ./test-single-file"
     },
-    "files": [
-        "dist/**/*.js"
-    ],
     "dependencies": {
         "babel-eslint": "10.0.1",
         "eslint": "5.15.3",

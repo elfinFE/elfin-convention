@@ -1,3 +1,5 @@
+const {assertHasComment} = require('../utils')
+
 module.exports = {
     meta: {
         type: 'suggestion',
@@ -43,7 +45,8 @@ module.exports = {
             FunctionExpression: true
         };
         const options = Object.assign(DEFAULT_OPTIONS, context.options[0] && context.options[0].require);
-        const fnDeclaration = ['Program', 'FunctionDeclaration', 'FunctionExpression', 'ArrowFunctionExpression']
+        // 外部函数定义
+        const outerFnDeclaration = ['Program', 'FunctionDeclaration', 'FunctionExpression', 'ArrowFunctionExpression']
 
         /**
          * report错误信息
@@ -55,13 +58,15 @@ module.exports = {
 
         /**
          * 校验是否有注释
-         * @param {Node} node
          */
         function checkComments(node) {
-            const jsComment = source.getComments(node);
-            const jsDocComment = source.getJSDocComment(node);
+            let hasComment = assertHasComment(source, node);
+            // export function bar() {}
+            if (!hasComment && node.parent.type === 'ExportNamedDeclaration') {
+                hasComment = assertHasComment(source, node.parent);
+            }
 
-            if ((!jsComment || jsComment.leading.length === 0) && !jsDocComment) {
+            if (!hasComment) {
                 report(node);
             }
         }
@@ -72,7 +77,7 @@ module.exports = {
          */
         function isOuterDeclaration(node) {
             let ancestor = node.parent
-            while (ancestor && fnDeclaration.indexOf(ancestor.type) < 0) {
+            while (ancestor && outerFnDeclaration.indexOf(ancestor.type) < 0) {
                 ancestor = ancestor.parent;
             }
 

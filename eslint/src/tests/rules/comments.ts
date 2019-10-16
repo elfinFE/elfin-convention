@@ -29,6 +29,8 @@ class FunctionNoteTest extends EslintTest {
                 },
                 mounted() {},
             }`,
+            "// Description\nexport function bar() {}",
+            "/**\n* Description\n */\nexport function bar() {}",
         ]
     }
 
@@ -44,6 +46,10 @@ class FunctionNoteTest extends EslintTest {
             },
             {
                 code: "function bar() {function bar1() {}}",
+                errors: [{message: "Missing function comment."}],
+            },
+            {
+                code: "export function bar() {}",
                 errors: [{message: "Missing function comment."}],
             },
         ]

@@ -98,3 +98,12 @@ export function getVariableByName(initScope: any, name: String) {
 
     return null;
 }
+
+/**
+ * assert node has comment
+ */
+export function assertHasComment(source: any, node: any) {
+    let jsComment = source.getComments(node);
+    let jsDocComment = source.getJSDocComment(node);
+    return (jsComment && jsComment.leading.length > 0) || jsDocComment
+}
