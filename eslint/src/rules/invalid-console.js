@@ -1,6 +1,6 @@
-import {getStaticPropertyName} from '../utils/ast'
+const {getStaticPropertyName} = require('../utils')
 
-export default {
+module.exports = {
     meta: {
         type: 'suggestion',
 
