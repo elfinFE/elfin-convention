@@ -11,12 +11,16 @@ class FunctionNoteTest extends EslintTest {
     valid(): string | (string | RuleTester.ValidTestCase)[] {
         return [
             "// Description\nfunction bar() {}",
+            "// Description\nvar bar = function() {}",
+            "// Description\nexport function bar() {}",
             "/**\n* Description\n */\nfunction bar() {}",
             "/**\nDescription\n*/\nfunction bar() {}",
             "/**\nDescription\n*/\nvar bar = function() {}",
+            "/**\n* Description\n */\nexport function bar() {}",
+            "var bar = {bar1: function() {}}",
             "var bar = {bar1: function() {}}",
             "// Description\nfunction bar() {function bar1() {}}",
-            "var bar = {bar1: function() {}}",
+            "/**\n* Description\n */\nfunction bar() {function bar1() {}}",
             `export default {
                 data() {
                     return {}
@@ -29,8 +33,6 @@ class FunctionNoteTest extends EslintTest {
                 },
                 mounted() {},
             }`,
-            "// Description\nexport function bar() {}",
-            "/**\n* Description\n */\nexport function bar() {}",
         ]
     }
 

@@ -47,6 +47,7 @@ module.exports = {
         const options = Object.assign(DEFAULT_OPTIONS, context.options[0] && context.options[0].require);
         // 外部函数定义
         const outerFnDeclaration = ['Program', 'FunctionDeclaration', 'FunctionExpression', 'ArrowFunctionExpression']
+        const varDeclaration = ['Program', 'ExportNamedDeclaration', 'VariableDeclarator', 'VariableDeclaration']
 
         /**
          * report错误信息
@@ -60,12 +61,20 @@ module.exports = {
          * 校验是否有注释
          */
         function checkComments(node) {
-            let hasComment = assertHasComment(source, node);
+            let tempNode = node.parent // 临时节点
+            let distance = 1 // 遍历深度
+            let hasComment = assertHasComment(source, node); // 是否有注释
+            // 有了注释就不继续遍历
+            // 遍历最多2层
+            // 父级数据需要匹配varDeclaration
+            // 场景:
             // export function bar() {}
-            if (!hasComment && node.parent.type === 'ExportNamedDeclaration') {
-                hasComment = assertHasComment(source, node.parent);
+            // var bar = function() {} jsComment注释
+            while (!hasComment && distance <= 3 && tempNode && varDeclaration.indexOf(tempNode.type) >= 0) {
+                hasComment = assertHasComment(source, tempNode);
+                tempNode = tempNode.parent;
+                distance++;
             }
-
             if (!hasComment) {
                 report(node);
             }

@@ -1,9 +1,9 @@
 {
     "name": "@elfin-fe/eslint-plugin-elfin",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "main": "index.js",
     "license": "MIT",
-    "author": "cat",
+    "author": "rengar",
     "repository": "https://github.com/elfinFE/elfin-convention.git",
     "publishConfig": {
         "access": "public"
