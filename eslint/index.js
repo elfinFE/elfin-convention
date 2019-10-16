@@ -4,8 +4,10 @@ const Comments = require('./dist/rules/comments')
 const InvalidConsole = require('./dist/rules/invalid-console')
 
 module.exports = {
-    VxPrefix,
-    RefPrefix,
-    Comments,
-    InvalidConsole,
+    rules: {
+        'vx-prefix': VxPrefix,
+        'ref-prefix': RefPrefix,
+        'comments': Comments,
+        'invalid-console': InvalidConsole,
+    },
 }
