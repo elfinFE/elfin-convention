@@ -65,10 +65,7 @@ module.exports = {
         function isConsole(reference) {
             if (!reference) return false;
             // 身份标明为console
-            const isNameConsole = reference.identifier.name === 'console';
-            if (!isNameConsole) return false;
-            // 是否允许使用
-            return !isAllowed(reference)
+            return reference.identifier.name === 'console';
         }
 
         /**
@@ -81,7 +78,8 @@ module.exports = {
             const isCommonNode = node.parent.object === node;
             // 是否是在catch作用域
             const isTryCatch = isTryCatchBlock(node);
-            return isMemberExpression && isCommonNode && !isTryCatch
+            // isAllowed 是否允许使用
+            return isMemberExpression && isCommonNode && !isAllowed(reference) && !isTryCatch
         }
 
         /**
