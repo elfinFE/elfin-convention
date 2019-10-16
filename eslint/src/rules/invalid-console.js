@@ -1,4 +1,4 @@
-const {getStaticPropertyName} = require('../utils')
+const {getStaticPropertyName, getVariableByName} = require('../utils')
 
 module.exports = {
     meta: {
@@ -100,8 +100,15 @@ module.exports = {
         return {
             'Program:exit'() {
                 const scope = context.getScope();
-                // 收集所有的console && 输出
-                scope.through.filter(isConsole).forEach(report);
+                const consoleVar = getVariableByName(scope, 'console');
+                const shadowed = consoleVar && consoleVar.defs.length > 0;
+
+                const references = consoleVar ? consoleVar.references : scope.through.filter(isConsole);
+
+                if (!shadowed) {
+                    // 收集所有的console && 输出
+                    references.filter(isConsole).forEach(report);
+                }
             },
         };
     }
