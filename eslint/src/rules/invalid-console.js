@@ -1,4 +1,6 @@
-module.exports = {
+import {getStaticPropertyName} from '../utils/ast'
+
+export default {
     meta: {
         type: 'suggestion',
 
@@ -33,7 +35,20 @@ module.exports = {
     },
 
     create(context) {
+        const options = context.options[0] || {}
+        const allowed = options.allow || []
         const catchDeclaration = ['Program', 'CatchClause']
+
+        /**
+         * 判断console方法(log、dir等)是否被允许使用
+         * @param reference
+         */
+        function isAllowed(reference) {
+            const node = reference.identifier;
+            const parent = node.parent;
+            const propertyName = getStaticPropertyName(parent);
+            return propertyName && allowed.indexOf(propertyName) !== -1;
+        }
         /**
          * report错误信息
          * @param {Object} reference
@@ -49,8 +64,11 @@ module.exports = {
          */
         function isConsole(reference) {
             if (!reference) return false;
+            // 身份标明为console
             const isNameConsole = reference.identifier.name === 'console';
             if (!isNameConsole) return false;
+            // 是否允许使用
+            if (isAllowed(reference)) return false;
             return isMemberExpressionBlock(reference);
         }
 
@@ -62,6 +80,7 @@ module.exports = {
             const node = reference.identifier;
             const isMemberExpression = node.parent.type === 'MemberExpression';
             const isCommonNode = node.parent.object === node;
+            // 是否是在catch作用域
             const isTryCatch = isTryCatchBlock(node);
             return isMemberExpression && isCommonNode && !isTryCatch
         }

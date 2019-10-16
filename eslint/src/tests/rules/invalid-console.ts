@@ -10,15 +10,25 @@ class FunctionNoteTest extends EslintTest {
 
     valid(): string | (string | RuleTester.ValidTestCase)[] {
         return [
-            `
-            try {
-                // xxx
-            }
-            catch(e) {
-                console.log(e)
-                throw e
-            }
-            `
+            {
+                code: `
+                    try {
+                        // xxx
+                    }
+                    catch(e) {
+                        console.log(e)
+                        throw e
+                    }
+                `,
+            },
+            {
+                code: 'console.log(111)',
+                options: [{allow: ['log']}]
+            },
+            {
+                code: 'console.error(111)',
+                options: [{allow: ['error']}]
+            },
         ]
     }
 
