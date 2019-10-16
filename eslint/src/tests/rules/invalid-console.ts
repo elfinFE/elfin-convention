@@ -33,6 +33,10 @@ class FunctionNoteTest extends EslintTest {
                 code: 'console.error(111)',
                 options: [{allow: ['error']}]
             },
+            {
+                code: 'console.warn(111)',
+                options: [{allow: ['warn', 'error']}]
+            },
         ]
     }
 
