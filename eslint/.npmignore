@@ -12,3 +12,4 @@ test-single-file.js
 package-lock.json
 dist/tests/
 dist/types/
+dist/**/*.js.map
