@@ -4,6 +4,10 @@ src
 configs
 node_modules
 .idea
+.babelrc
+.eslintrc.js
+.npmignore
+tsconfig.json
 test-single-file.js
 package-lock.json
 dist/tests/
