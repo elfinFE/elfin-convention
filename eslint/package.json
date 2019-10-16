@@ -1,6 +1,6 @@
 {
     "name": "@elfin-fe/eslint-plugin-elfin",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "main": "index.js",
     "license": "MIT",
     "author": "cat",
@@ -16,7 +16,6 @@
     "dependencies": {
         "babel-eslint": "10.0.1",
         "eslint": "5.15.3",
-        "eslint-plugin-elfin": "1.0.4",
         "eslint-scope": "4.0.3",
         "eslint-visitor-keys": "1.0.0",
         "vue-eslint-parser": "6.0.4"
