@@ -97,12 +97,13 @@ module.exports = {
         return {
             'Program:exit'() {
                 const scope = context.getScope();
-                const consoleVar = getVariableByName(scope, 'console');
-                const shadowed = consoleVar && consoleVar.defs.length > 0;
+                // 在scope中找到当前环境下的global引用
+                const consoleScope = getVariableByName(scope, 'console');
+                // console又在global中 && 有引用信息
+                const defined = consoleScope && consoleScope.defs.length > 0;
 
-                const references = consoleVar ? consoleVar.references : scope.through.filter(isConsole);
-
-                if (!shadowed) {
+                if (!defined) {
+                    const references = consoleScope ? consoleScope.references : scope.through.filter(isConsole);
                     // 收集所有的console && 输出
                     references.filter(isMemberExpressionBlock).forEach(report);
                 }

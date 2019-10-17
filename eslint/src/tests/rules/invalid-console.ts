@@ -37,6 +37,9 @@ class FunctionNoteTest extends EslintTest {
                 code: 'console.warn(111)',
                 options: [{allow: ['warn', 'error']}]
             },
+            "console(111)",
+            "const console = require('temp-console');\nconsole(111)",
+            "const console = require('temp-console');\nconsole.log(111)",
         ]
     }
 
